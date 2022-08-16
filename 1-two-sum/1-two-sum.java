@@ -7,7 +7,7 @@ class Solution {
             int num = nums[i];
             int diff = target - num;
 
-            if (prevMap.containsKey(nums[i])) {
+            if (prevMap.containsKey(num)) {
                 return new int[] { prevMap.get(num), i };
             }
 
