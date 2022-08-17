@@ -1,14 +1,7 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
-        char[] sArray = new char[s.length()];
-        char[] tArray = new char[t.length()];
-        
-        for(int i = 0; i < s.length(); i++) {
-            sArray[i] = s.charAt(i);
-        }
-        for(int j = 0; j < t.length(); j++) {
-            tArray[j] = t.charAt(j);
-        }
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
         
         if(sArray.length != tArray.length) {
             return false;
