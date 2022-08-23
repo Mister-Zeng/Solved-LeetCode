@@ -6,27 +6,18 @@ class Solution {
             return false;
         }
         
-        for(int i = 0; i < s.length(); i++){
-            if(stack.isEmpty() && 
-              (s.charAt(i) == ')' || s.charAt(i) == '}' || s.charAt(i) == ']')
-              ) {
+        for(char c : s.toCharArray()) {
+            if(c == '(') {
+                stack.push(')');
+            } else if(c == '[') {
+                stack.push(']');
+            } else if(c == '{') {
+                stack.push('}');
+            } else if(stack.isEmpty() || stack.pop() != c) {
                 return false;
-            } else {
-                if(!stack.isEmpty()){
-                    if(stack.peek() == '(' && s.charAt(i) == ')'){
-                        stack.pop();
-                    } else if(stack.peek() == '{' && s.charAt(i) == '}'){
-                        stack.pop();
-                    } else if(stack.peek() == '[' && s.charAt(i) == ']'){
-                        stack.pop();
-                    } else {
-                        stack.add(s.charAt(i));
-                    }
-                } else {
-                    stack.add(s.charAt(i));
-                } 
             }
         }
+            
         return stack.isEmpty();
     }
 }
