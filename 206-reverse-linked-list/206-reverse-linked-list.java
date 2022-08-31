@@ -13,28 +13,13 @@ class Solution {
         return reverse(head, null);
     }
     
-    public ListNode reverse(ListNode node, ListNode prev){
-        if(node == null) {
+    public ListNode reverse(ListNode head, ListNode prev) {
+        if(head == null) {
             return prev;
         }
         
-        ListNode temp = node.next;
-        node.next = prev;
-        return reverse(temp, node);
+        ListNode temp = head.next;
+        head.next = prev; 
+        return reverse(temp, head);
     }
-    
-    /*
-        public ListNode reverseList(ListNode head) {
-        ListNode curr = head;
-        ListNode prev = null;
-        
-        while(curr != null) {
-            ListNode temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
-        }
-        return prev;
-    }
-    */
 }
