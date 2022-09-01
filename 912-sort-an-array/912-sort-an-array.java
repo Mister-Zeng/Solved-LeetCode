@@ -1,39 +1,43 @@
 class Solution {
     public int[] sortArray(int[] nums) {
-        int length = nums.length;
-        if (length <= 1) {
-          return nums;
-        }
-        
-        int mid = Math.floorDiv(length, 2);
-        int[] leftArray = Arrays.copyOfRange(nums, 0, mid);
-        int[] rightArray = Arrays.copyOfRange(nums, mid, length);
-        
-        return merge(sortArray(leftArray), sortArray(rightArray));
-      }
-
-    public int[] merge(int[] left, int[] right) {
-        int[] merged = new int[left.length + right.length];
-        int leftPos = 0;
-        int rightPos = 0;
-        int curIndex = 0;
-
-        while (left.length > leftPos && right.length > rightPos) {
-            if (left[leftPos] < right[rightPos]) {
-                merged[curIndex] = left[leftPos];
-                leftPos++;
-            } else {
-                merged[curIndex] = right[rightPos];
-                rightPos++;
-            }
-          curIndex++;
-        }
-
-        System.arraycopy(left, leftPos, merged, curIndex, left.length - leftPos);
-        System.arraycopy(right, rightPos, merged, curIndex, right.length - rightPos);
-
-        return merged;
+        Arrays.sort(nums);
+        return nums;
     }
+//     public int[] sortArray(int[] nums) {
+//         int length = nums.length;
+//         if (length <= 1) {
+//           return nums;
+//         }
+        
+//         int mid = Math.floorDiv(length, 2);
+//         int[] leftArray = Arrays.copyOfRange(nums, 0, mid);
+//         int[] rightArray = Arrays.copyOfRange(nums, mid, length);
+        
+//         return merge(sortArray(leftArray), sortArray(rightArray));
+//       }
+
+//     public int[] merge(int[] left, int[] right) {
+//         int[] merged = new int[left.length + right.length];
+//         int leftPos = 0;
+//         int rightPos = 0;
+//         int curIndex = 0;
+
+//         while (left.length > leftPos && right.length > rightPos) {
+//             if (left[leftPos] < right[rightPos]) {
+//                 merged[curIndex] = left[leftPos];
+//                 leftPos++;
+//             } else {
+//                 merged[curIndex] = right[rightPos];
+//                 rightPos++;
+//             }
+//           curIndex++;
+//         }
+
+//         System.arraycopy(left, leftPos, merged, curIndex, left.length - leftPos);
+//         System.arraycopy(right, rightPos, merged, curIndex, right.length - rightPos);
+
+//         return merged;
+//     }
     
     // Sorting helper function 
     // public void swap(int[] nums, int indexOne, int indexTwo) {
