@@ -29,8 +29,17 @@ class Solution {
           curIndex++;
         }
 
-        System.arraycopy(left, leftPos, merged, curIndex, left.length - leftPos);
-        System.arraycopy(right, rightPos, merged, curIndex, right.length - rightPos);
+        while(leftPos < left.length) {
+            merged[curIndex] = left[leftPos];
+            leftPos++;
+            curIndex++;
+        }
+        
+        while(rightPos < right.length) {
+            merged[curIndex] = right[rightPos];
+            rightPos++;
+            curIndex++;
+        }
 
         return merged;
     }
