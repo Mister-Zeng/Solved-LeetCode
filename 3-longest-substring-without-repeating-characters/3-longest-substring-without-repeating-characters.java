@@ -6,11 +6,9 @@ class Solution {
         int left = 0, right = 0;
         while(right < s.length()) {
             while(window.contains(s.charAt(right))) {
-                window.remove(s.charAt(left));
-                left++;
+                window.remove(s.charAt(left++));
             }
-            window.add(s.charAt(right));
-            right++;
+            window.add(s.charAt(right++));
             maxLength = Math.max(maxLength, right - left);
         }
         
