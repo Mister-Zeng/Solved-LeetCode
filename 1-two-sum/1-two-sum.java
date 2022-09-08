@@ -10,7 +10,6 @@ class Solution {
             if(list.containsKey(num)){
                 return new int[] {list.get(num), i};
             }
-            
             list.put(diff, i);
         }
         return new int[] {};
