@@ -1,36 +1,30 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        // intialize and compare the start of string to end of string
-        int i = 0;
-        int j = s.length() - 1; 
+        int start = 0;
+        int end = s.length() - 1;
         
-        // compare letter from start to end of string until reached middle 
-        while(i < j) {
-            // 
-            char start = s.charAt(i);
-            char end = s.charAt(j);
+        while(start < end) {
+            char i = s.charAt(start);
+            char j = s.charAt(end);
             
-            // skip all except for letters or digit
-            if(!Character.isLetterOrDigit(start)) {
-                i++;
+            if(!Character.isLetterOrDigit(i)) {
+                start++;
                 continue;
-            }
+            };
             
-            if(!Character.isLetterOrDigit(end)) {
-                j--;
+            if(!Character.isLetterOrDigit(j)) {
+                end--;
                 continue;
-            }
+            };
             
-            // if compared dont match, it not a palindrome
-            if(Character.toLowerCase(start) != Character.toLowerCase(end)) {
+            if(Character.toLowerCase(i) != Character.toLowerCase(j)) {
                 return false;
-            }
+            };
             
-            // next letter to compare
-            i++;
-            j--;
+            start++;
+            end--;
         }
-
+        
         return true;
     }
 }
