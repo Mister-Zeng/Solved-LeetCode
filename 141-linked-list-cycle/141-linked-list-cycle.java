@@ -11,17 +11,20 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-            ListNode slow = head;
-            ListNode fast = head;
+        // declare a fast and slow pointer
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        // Floy'd fast and slow pointer technique
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
             
-            while(fast != null && fast.next != null) {
-                fast = fast.next.next;
-                slow = slow.next;
-                
-                if(fast == slow){
-                    return true;
-                }
+            // check if there is a cycle
+            if(fast == slow) {
+                return true;
             }
+        }
         return false;
     }
 }
