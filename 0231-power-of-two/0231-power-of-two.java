@@ -5,13 +5,13 @@ class Solution {
         if(n <= 0) return false;
         
        
-        while(true) {
-            if(result == 1) {
-                return true;
-            } else if (result % 2 == 1) {
+        while(result != 1) {
+            if (result % 2 == 1) {
                 return false;
             } 
             result = result / 2;
         }
+        
+        return true;
     }
 }
