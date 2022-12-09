@@ -17,8 +17,9 @@ class Solution {
             map.computeIfAbsent(key, k -> new ArrayList<>());
             map.get(key).add(s);
         }
-        
+
         result.addAll(map.values());
+
         return result;
     }
 }
