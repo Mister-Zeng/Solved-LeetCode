@@ -1,18 +1,14 @@
 class Solution {
     public int addDigits(int num) {        
-        return sumRecursion(num);
-    }
-    
-    public int sumRecursion(int numsArray){        
-        if(numsArray < 10) {
-            return numsArray;
+        if(num < 10) {
+            return num;
         }
         int sum = 0;
-        while (numsArray > 0) {
-            sum += numsArray % 10; 
-            numsArray /= 10;
+        while (num > 0) {
+            sum += num % 10; 
+            num /= 10;
         }
 
-        return sumRecursion(sum); 
+        return addDigits(sum); 
     }
 }
