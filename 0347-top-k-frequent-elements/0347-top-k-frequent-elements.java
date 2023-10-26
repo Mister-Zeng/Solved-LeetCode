@@ -1,35 +1,23 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> myMap = new HashMap<>();
-        for(int i : nums){
-            if(myMap.containsKey(i)){
-                myMap.put(i, myMap.get(i) + 1);
-            } else {
-                myMap.put(i, 1);
-            }
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
 
-        // Convert HashMap to a list of key-value pairs
-        List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(myMap.entrySet());
+        // Create a max-heap (PriorityQueue) based on frequency
+        PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = new PriorityQueue<>(
+            (e1, e2) -> e2.getValue().compareTo(e1.getValue())
+        );
 
-        // Sort the list based on values in descending order
-        entryList.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        maxHeap.addAll(frequencyMap.entrySet());
 
-        // Create a new sorted HashMap from the sorted list
-        Map<Integer, Integer> sortedMap = new LinkedHashMap<>();
-        for (Map.Entry<Integer, Integer> entry : entryList) {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        Iterator<Map.Entry<Integer, Integer>> iterator = sortedMap.entrySet().iterator();
+        // Retrieve the top k frequent elements
         int[] result = new int[k];
-        int count = 0;
-        while(iterator.hasNext() && count < k ){
-            Map.Entry<Integer, Integer> entry = iterator.next();
-            Integer key = entry.getKey();
-            result[count] = key;
-            count++;
+        for (int i = 0; i < k; i++) {
+            result[i] = maxHeap.poll().getKey();
         }
-        
+
         return result;
     }
 }
