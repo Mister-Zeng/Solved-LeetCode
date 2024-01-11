@@ -1,9 +1,5 @@
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
-        // initiate variable for array length for both 
-        int nums1Length = nums1.length;
-        int nums2Length = nums2.length;
-        
         // initiate a set for result 
         Set<Integer> set = new HashSet<>(); 
         
