@@ -19,7 +19,10 @@ class Solution {
             return true;
         }
         
-        return (min == null || root.val > min) && (max == null || root.val < max) && validBST(root.left, min, root.val) && validBST(root.right, root.val, max);
+        return (min == null || root.val > min) && 
+            (max == null || root.val < max) && 
+            validBST(root.left, min, root.val) && 
+            validBST(root.right, root.val, max);
     }
     
     public boolean isValidBST(TreeNode root) {
