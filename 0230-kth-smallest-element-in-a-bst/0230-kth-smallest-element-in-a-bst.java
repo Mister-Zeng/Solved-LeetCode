@@ -19,7 +19,7 @@ class Solution {
           if (k <= count) {
               return kthSmallest(root.left, k);
           } else if (k > count + 1) {
-              return kthSmallest(root.right, k-1-count); // 1 is counted as current node
+              return kthSmallest(root.right, k - 1 - count); // 1 is counted as current node
           }
 
           return root.val;
@@ -30,4 +30,24 @@ class Solution {
 
           return 1 + countNodes(n.left) + countNodes(n.right);
       }
+    
+    
+    /**
+    Recursive Solution 
+    
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> list = new ArrayList<>();
+        inorder(root, list);
+        return list.get(k - 1);
+    }
+
+    private void inorder(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+
+        inorder(root.left, list);
+        list.add(root.val);
+        inorder(root.right, list);
+    }
+    
+    */
 }
