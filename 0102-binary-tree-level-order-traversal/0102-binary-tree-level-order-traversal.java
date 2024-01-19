@@ -18,11 +18,15 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
         
-        if(root == null) return result; 
+        if(root == null) {
+            return result;
+        }
+        
         queue.add(root);
         
         while(!queue.isEmpty()) {
             int length = queue.size();
+            
             List<Integer> level = new ArrayList<>();
             
             for(int i = 0; i < length; i++) {
@@ -37,6 +41,7 @@ class Solution {
                     queue.add(curr.right);
                 }
             }
+            
             result.add(level);
         }
         
