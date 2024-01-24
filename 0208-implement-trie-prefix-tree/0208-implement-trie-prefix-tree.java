@@ -1,13 +1,13 @@
 class Trie {
     
     class Node {
-        private char value;
+        private int value;
         private boolean isWord;
-        private Node[] children;
+        private Node[] children; 
         
-        public Node(char val) {
+        public Node(int val) {
             this.value = val;
-            this.isWord = false;
+            this.isWord = false; 
             this.children = new Node[26];
         }
     }
@@ -18,26 +18,26 @@ class Trie {
         root = new Node('\0');
     }
     
+    public Node getLast(String word) {
+        Node curr = root; 
+        for(char x : word.toCharArray()){
+            if(curr.children[x - 'a'] == null) {
+                return null;
+            }
+            curr = curr.children[x - 'a'];
+        }
+        return curr;
+    }
+    
     public void insert(String word) {
         Node curr = root;
-        for(char x : word.toCharArray()) {
+        for(char x : word.toCharArray()){
             if(curr.children[x - 'a'] == null) {
                 curr.children[x - 'a'] = new Node(x);
             }
             curr = curr.children[x - 'a'];
         }
         curr.isWord = true;
-    }
-    
-    public Node getLast(String word) {
-        Node curr = root;
-        for(char x : word.toCharArray()) {
-            if(curr.children[x - 'a'] == null) {
-                return null;
-            }
-            curr = curr.children[x - 'a'];
-        }
-        return curr; 
     }
     
     public boolean search(String word) {
