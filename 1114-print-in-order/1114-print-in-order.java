@@ -1,5 +1,5 @@
 class Foo {
-    
+
     private boolean firstDone;
     private boolean secondDone;
     
@@ -8,30 +8,36 @@ class Foo {
         this.secondDone = false;
     }
 
-    public synchronized void first(Runnable printFirst) throws InterruptedException {
+    public void first(Runnable printFirst) throws InterruptedException {
         
-        // printFirst.run() outputs "first". Do not change or remove this line.
-        printFirst.run();
-        firstDone = true;
-        notifyAll();
+        synchronized(this) {
+            printFirst.run();
+            firstDone = true;
+            notifyAll();
+        }
     }
 
-    public synchronized void second(Runnable printSecond) throws InterruptedException {
-        while(!firstDone) {
-            wait();
-        }
+    public void second(Runnable printSecond) throws InterruptedException {
         
-        // printSecond.run() outputs "second". Do not change or remove this line.
-        printSecond.run();
-        secondDone = true;
-        notifyAll();
+        synchronized(this) {
+            while(!firstDone) {
+                wait();
+            }
+            
+            printSecond.run();
+            secondDone = true;
+            notifyAll();
+        }
     }
 
-    public synchronized void third(Runnable printThird) throws InterruptedException {
-        while(!secondDone) {
-            wait();
+    public void third(Runnable printThird) throws InterruptedException {
+        
+        synchronized(this) {
+            while(!secondDone) {
+                wait();
+            }
+            
+            printThird.run();
         }
-        // printThird.run() outputs "third". Do not change or remove this line.
-        printThird.run();
     }
 }
