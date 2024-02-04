@@ -1,54 +1,57 @@
 class Trie {
     
     class Node {
-        private int value;
-        private boolean isWord;
-        private Node[] children; 
-        
-        public Node(int val) {
-            this.value = val;
-            this.isWord = false; 
+        private int value; 
+        private boolean isWord; 
+        private Node[] children;
+
+        public Node(int value) {
+            this.value = value;
+            this.isWord = false;
             this.children = new Node[26];
         }
     }
     
-    Node root;
+    Node root; 
     
     public Trie() {
         root = new Node('\0');
     }
     
-    public Node getLast(String word) {
+    private Node getLast(String word) {
         Node curr = root; 
-        for(char x : word.toCharArray()){
-            if(curr.children[x - 'a'] == null) {
+        for(char c : word.toCharArray()) {
+            if(curr.children[c - 'a'] == null) {
                 return null;
             }
-            curr = curr.children[x - 'a'];
+            
+            curr = curr.children[c - 'a'];
         }
-        return curr;
+        
+        return curr; 
     }
     
     public void insert(String word) {
-        Node curr = root;
-        for(char x : word.toCharArray()){
-            if(curr.children[x - 'a'] == null) {
-                curr.children[x - 'a'] = new Node(x);
+        Node curr = root; 
+        for(char c : word.toCharArray()) {
+            if(curr.children[c - 'a'] == null) {
+                curr.children[c - 'a'] = new Node(c);
             }
-            curr = curr.children[x - 'a'];
+            
+            curr = curr.children[c - 'a'];
         }
+        
         curr.isWord = true;
     }
     
     public boolean search(String word) {
-        Node res = getLast(word);
-        return (res != null && res.isWord);
+        Node result = getLast(word);
+        return (result != null && result.isWord); 
     }
     
     public boolean startsWith(String prefix) {
-        Node res = getLast(prefix);
-        if(res == null) return false;
-        return true;
+        Node result = getLast(prefix);
+        return (result == null ? false : true);
     }
 }
 
