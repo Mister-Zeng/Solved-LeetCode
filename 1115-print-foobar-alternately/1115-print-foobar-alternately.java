@@ -30,6 +30,7 @@ class FooBar {
                 if(run) {
                     wait();
                 }
+                
                 // printBar.run() outputs "bar". Do not change or remove this line.
         	    printBar.run();
                 run = !run;
