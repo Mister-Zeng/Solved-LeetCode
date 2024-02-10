@@ -1,16 +1,13 @@
-class Solution {
-    public List<Integer> getRow(int rowIndex) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> row = new ArrayList<>();
+public class Solution {
+    public List<Integer> getRow(int k) {
+        Integer[] arr = new Integer[k + 1];
+        Arrays.fill(arr, 0);
+        arr[0] = 1;
         
-        for(int i = 0; i <= rowIndex; i++) {
-            row.add(0, 1);
-            for(int j = 1; j < i; j++) {
-                row.set(j, row.get(j) + row.get(j + 1));
-            }
-            result.add(new ArrayList<>(row));
-        }
+        for (int i = 1; i <= k; i++) 
+            for (int j = i; j > 0; j--) 
+                arr[j] = arr[j] + arr[j - 1];
         
-        return result.get(rowIndex);
+        return Arrays.asList(arr);
     }
 }
