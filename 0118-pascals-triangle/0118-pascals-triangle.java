@@ -1,25 +1,14 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new ArrayList<>();
+        List<Integer> row = new ArrayList<>();
         
-        List<Integer> firstRow = new ArrayList<>();
-        firstRow.add(1);
-        result.add(firstRow);
-        
-        if(numRows == 1) return result; 
-        
-        for(int i = 1; i < numRows; i++) {
-            List<Integer> previousRow = result.get(i - 1);
-            List<Integer> currentRow = new ArrayList<>();
-            currentRow.add(1);
-            
+        for(int i = 0; i < numRows; i++) {
+            row.add(0, 1);
             for(int j = 1; j < i; j++) {
-                int sum = previousRow.get(j - 1) + previousRow.get(j);
-                currentRow.add(sum);
+                row.set(j, row.get(j) + row.get(j + 1));
             }
-            
-            currentRow.add(1);
-            result.add(currentRow);
+            result.add(new ArrayList<>(row));
         }
         
         return result;
