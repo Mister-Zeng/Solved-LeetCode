@@ -1,15 +1,14 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        char[] charArr = s.toCharArray();
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(s);
         int count = 0;
 
-        for (int i = 0; i < charArr.length; i++) {
-            if(charArr[i] == '(') {
+        for (int i = 0; i < sb.length(); i++) {
+            if(sb.charAt(i) == '(') {
                 count++;
-            } else if(charArr[i] == ')') {
+            } else if(sb.charAt(i) == ')') {
                 if(count == 0) {
-                    charArr[i] = '#';
+                    sb.setCharAt(i, '#');
                 } else {
                     count--;
                 }
@@ -17,18 +16,14 @@ class Solution {
             }
         }
 
-        for (int i = charArr.length - 1; i >= 0; i--) {
-            if(charArr[i] == '(' && count > 0) {
-                charArr[i] = '#';
+        for (int i = sb.length() - 1; i >= 0; i--) {
+            if(sb.charAt(i) == '(' && count > 0) {
+                sb.setCharAt(i, '#');
                 count--;
             }
         }
 
-        for(char c : charArr) {
-            if(c != '#') sb.append(c);
-        }
 
-
-        return sb.toString();
+        return sb.toString().replaceAll("#", "");
     }
 }
