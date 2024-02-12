@@ -3,8 +3,6 @@ class Solution {
         int[] charCount = new int[128];
         int result = 0;
         
-        if(s.length() == 1) return 1;
-        
         for (char c: s.toCharArray())
             charCount[c]++;
         
