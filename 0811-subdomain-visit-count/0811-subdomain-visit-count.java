@@ -17,7 +17,7 @@ class Solution {
         
         for(String s : map.keySet()) {
             StringBuilder sb = new StringBuilder();
-            sb.append(map.get(s) + " " + s);
+            sb.append(map.get(s)).append(" ").append(s);
             result.add(sb.toString());
         }
         
