@@ -9,32 +9,34 @@
  */
 class Solution {
     
-    List<Integer> result;
     Set<Integer> visited;
     Map<TreeNode, TreeNode> parentMap; 
+    List<Integer> result; 
     
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        result = new ArrayList<>();
         visited = new HashSet<>();
         parentMap = new HashMap<>();
-        addParent(root, null);
+        result = new ArrayList<>();
+        
+        parent(root, null);
         dfs(target, k);
         
         return result;
     }
     
-    public void addParent(TreeNode root, TreeNode prev) {
-        if(root == null) return;
+    public void parent(TreeNode root, TreeNode prev) {
+        if(root == null) return; 
         
         parentMap.put(root, prev);
-        addParent(root.left, root);
-        addParent(root.right, root);
+        parent(root.left, root);
+        parent(root.right, root);
     }
     
     public void dfs(TreeNode root, int k) {
         if(root == null || visited.contains(root.val)) return;
         
         visited.add(root.val);
+        
         if(k == 0) {
             result.add(root.val);
             return;
@@ -43,5 +45,5 @@ class Solution {
         dfs(root.left, k - 1);
         dfs(root.right, k - 1);
         dfs(parentMap.get(root), k - 1);
-    } 
+    }
 }
