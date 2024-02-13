@@ -8,15 +8,16 @@
  * }
  */
 class Solution {
-    List<Integer> result; 
-    Map<TreeNode, TreeNode> parentMap;
+    
+    List<Integer> result;
     Set<Integer> visited;
+    Map<TreeNode, TreeNode> parentMap; 
     
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         result = new ArrayList<>();
-        parentMap = new HashMap<>();
         visited = new HashSet<>();
-        addParent(root, null); 
+        parentMap = new HashMap<>();
+        addParent(root, null);
         dfs(target, k);
         
         return result;
@@ -34,7 +35,6 @@ class Solution {
         if(root == null || visited.contains(root.val)) return;
         
         visited.add(root.val);
-        
         if(k == 0) {
             result.add(root.val);
             return;
@@ -43,5 +43,5 @@ class Solution {
         dfs(root.left, k - 1);
         dfs(root.right, k - 1);
         dfs(parentMap.get(root), k - 1);
-    }
+    } 
 }
