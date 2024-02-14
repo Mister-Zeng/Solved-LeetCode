@@ -37,12 +37,5 @@ class Solution {
         
         return true; 
     }
-    
-    private ListNode reverse(ListNode head, ListNode prev) {
-        if(head == null) return prev; 
-        
-        ListNode temp = head.next;
-        head.next = prev; 
-        return reverse(temp, head);
-    }
+
 }
