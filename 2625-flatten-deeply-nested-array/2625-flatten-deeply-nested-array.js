@@ -3,19 +3,19 @@
  * @param {number} depth
  * @return {Array}
  */
-var flat = function(arr, depth) {
-    const stack = [...arr.map(item => [item, depth])];
-    const result = [];
-
-    while (stack.length > 0) {
-        const [item, depth] = stack.pop();
-
-        if (Array.isArray(item) && depth > 0) {
-            stack.push(...item.map(subItem => [subItem, depth - 1]));
+var flat = function (arr, n) {
+    if(n == 0) return arr;
+    
+    let result = []; 
+    
+    for(let i = 0; i < arr.length; i++) {
+        
+        if(n > 0 && Array.isArray(arr[i])) {
+            result.push(...flat(arr[i], n - 1));
         } else {
-            result.push(item);
+            result.push(arr[i]);
         }
     }
-
-    return result.reverse();
+    
+    return result;
 };
