@@ -2,82 +2,87 @@ class LRUCache {
     
     class Node {
         int key;
-        int value; 
-        Node prev;
+        int value;
         Node next;
+        Node prev;
         
         public Node(int key, int value) {
             this.key = key;
-            this.value = value;
-        }
+            this.value = value; 
+        } 
         
         Node() {
-            this(0, 0); 
+            this(0, 0);
         }
     }
     
+    Map<Integer, Node> map;
     int capacity;
     int count; 
-    Map<Integer, Node> map = new HashMap<>();
     Node head;
-    Node tail;
+    Node tail; 
     
     public LRUCache(int capacity) {
-        this.capacity = capacity; 
+        this.map = new HashMap<>();
+        this.capacity = capacity;
         this.count = 0; 
-        head = new Node();
-        tail = new Node();
-        tail.prev = head;
-        head.next = tail;
+        this.head = new Node();
+        this.tail = new Node();
+        head.next = this.tail;
+        tail.prev = this.head; 
+            
     }
     
     public void add(Node node) {
         Node after = head.next;
         head.next = node;
-        node.next = after; 
-        node.prev = head; 
-        after.prev = node; 
-        
+        node.next = after;
+        node.prev = head;
+        after.prev = node;
     }
     
     public void remove(Node node) {
         Node prev = node.prev;
-        Node after = node.next;
+        Node after = node.next; 
         prev.next = after;
         after.prev = prev;
+        
     }
     
     public void update(Node node) {
         remove(node);
         add(node);
-    } 
+    }
+    
     
     public int get(int key) {
-        Node retrievedNode = map.get(key);
-        if(retrievedNode == null) return -1; 
-        update(retrievedNode);
-        
-        return retrievedNode.value;
+        Node exisitingNode = map.get(key);
+        if(exisitingNode == null) return -1; 
+        update(exisitingNode);
+        return exisitingNode.value;
     }
     
     public void put(int key, int value) {
-        Node retrievedNode = map.get(key);
-        if(retrievedNode == null) {
-            Node newNode = new Node(key, value);
-            add(newNode);
-            map.put(key, newNode);
-            ++count; 
+        Node exisitingNode = map.get(key);
+        if(exisitingNode == null) {
+            Node node = new Node(key, value);
+            map.put(key, node);
+            add(node);
+            ++count;
+        
         } else {
-            retrievedNode.value = value;
-            update(retrievedNode);
+            exisitingNode.value = value;
+            update(exisitingNode);
         }
         
         if(count > capacity) {
             Node lastNode = tail.prev;
             map.remove(lastNode.key);
             remove(lastNode);
-            --count; 
+            --count;
         }
+        
+        
     }
 }
 
