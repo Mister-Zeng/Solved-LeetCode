@@ -8,7 +8,7 @@ class Solution {
 
         for(int i = 0; i < rLength; i++) {
             for(int j = 0; j < cLength; j++) {
-                if(search(board, word, i, j, 0)) {
+                if(search(board, new boolean[rLength][cLength], word, i, j, 0)) {
                     return true;
                 }
             }
@@ -17,27 +17,25 @@ class Solution {
         return false;
     }
     
-    public boolean search(char[][] board, String word, int i, int j, int index) {
+    public boolean search(char[][] board, boolean[][] visitedBoard, String word, int i, int j, int index) {
         if(index >= word.length()) return true;
         
         if(i < 0 || i >= rLength || j < 0 || j >= cLength || board[i][j] != word.charAt(index)) {
             return false;
         }
         
-        boolean ret = false; 
-        
-        board[i][j] = '#';
+        if(visitedBoard[i][j]) return false;
+        visitedBoard[i][j] = true;
         
         int[] rowOffsets = {0, 1, 0, -1};
         int[] colOffsets = {1, 0, -1, 0};
         
         for(int k = 0; k < 4; ++k) {
-            ret = search(board, word, i + rowOffsets[k], j + colOffsets[k], index + 1);
-            if(ret) break;
+            if(search(board, visitedBoard, word, i + rowOffsets[k], j + colOffsets[k], index + 1)) return true;
         }
         
-        board[i][j] = word.charAt(index);
+        visitedBoard[i][j] = false;
         
-        return ret;
+        return false;
     }
 }
