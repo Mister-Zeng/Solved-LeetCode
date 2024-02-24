@@ -1,24 +1,24 @@
 class Twitter {
-    private static int timeStamp = 0; 
     
+    private static int timeStamp = 0;
     private Map<Integer, User> userMap; 
     
     private class Tweet {
         public int id; 
-        public int time; 
-        public Tweet next;
+        public int time;
+        public Tweet next; 
         
         public Tweet(int id) {
-            this.id = id; 
+            this.id = id;
             time = timeStamp++;
             next = null;
         }
     }
     
     public class User {
-        public int id;
-        public Set<Integer> followed;
-        public Tweet tweetHead;
+        public int id; 
+        public Set<Integer> followed; 
+        public Tweet tweetHead; 
         
         public User(int id) {
             this.id = id;
@@ -38,7 +38,7 @@ class Twitter {
         public void post(int id) {
             Tweet post = new Tweet(id);
             post.next = tweetHead;
-            tweetHead = post; 
+            tweetHead = post;
         }
     }
     
@@ -60,7 +60,8 @@ class Twitter {
         if(!userMap.containsKey(userId)) return res; 
         
         Set<Integer> users = userMap.get(userId).followed; 
-        PriorityQueue<Tweet> q = new PriorityQueue<Tweet>(users.size(), (a, b) -> b.time - a.time);
+        PriorityQueue<Tweet> q = new PriorityQueue<>(users.size(), (a, b) -> b.time - a.time);
+        
         for(int user : users) {
             Tweet tweet = userMap.get(user).tweetHead;
             if(tweet != null) {
@@ -68,7 +69,7 @@ class Twitter {
             }
         }
         
-        int n = 0;
+        int n = 0; 
         while(!q.isEmpty() && n < 10) {
             Tweet tweet = q.poll();
             res.add(tweet.id);
