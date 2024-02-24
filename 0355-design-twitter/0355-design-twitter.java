@@ -1,66 +1,66 @@
 class Twitter {
-
-    int time;
-    Map<Integer, List<int[]>> tweetMap;
-    Map<Integer, Set<Integer>> followMap;
     
+    int time;
+    List<int[]>[] tweets;
+    Set<Integer>[] followees;
+
     public Twitter() {
         
         time = 0;
-        tweetMap = new HashMap<> ();
-        followMap = new HashMap<> ();
+        tweets = new List[501];
+        followees = new Set[501];
     }
     
     public void postTweet(int userId, int tweetId) {
         
         ++time;
-        List<int[]> list = tweetMap.getOrDefault (userId, new ArrayList<> ());
-        list.add (new int[] {time, tweetId});
-        tweetMap.put (userId, list);
+        if (tweets[userId] == null) {
+            tweets[userId] = new ArrayList<> ();
+            follow (userId, userId);
+        }
+        
+        tweets[userId].add (new int[] {time, tweetId});
     }
-    
+   
     public List<Integer> getNewsFeed(int userId) {
         
-        PriorityQueue<int[]> maxHeap = new PriorityQueue<> ((arr1, arr2) -> arr2[0] - arr1[0]);
+        if (followees[userId] == null) {
+            return new ArrayList<> ();
+        }
         
-        if (tweetMap.containsKey (userId)) {
-            for (int[] arr : tweetMap.get (userId)) {
-                maxHeap.offer (arr);
+        List<Integer> newsFeed = new ArrayList<> ();
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<> ((tweet1, tweet2) -> tweet2[0] - tweet1[0]);
+        
+        for (int followee : followees[userId]) {
+            if (tweets[followee] == null) {
+                continue;
+            }
+            
+            for (int[] tweet : tweets[followee]) {
+                maxHeap.offer (tweet);
             }
         }
         
-        if (followMap.containsKey (userId)) {
-            for (int followee : followMap.get (userId)) {
-                if (tweetMap.containsKey (followee)) {
-                    for (int[] arr : tweetMap.get (followee)) {
-                        maxHeap.offer (arr);
-                    }
-                }
-            }
+        while (!maxHeap.isEmpty () && newsFeed.size () < 10) {
+            newsFeed.add (maxHeap.poll ()[1]);
         }
         
-        List<Integer> answer = new ArrayList<> ();
-        
-        while (!maxHeap.isEmpty () && answer.size () < 10) {
-            int[] arr = maxHeap.poll ();
-            answer.add (arr[1]);
-        }
-        
-        return answer;
+        return newsFeed;
     }
     
     public void follow(int followerId, int followeeId) {
         
-        Set<Integer> set = followMap.getOrDefault (followerId, new HashSet<> ());
-        set.add (followeeId);
-        followMap.put (followerId, set);
+        if (followees[followerId] == null) {
+            followees[followerId] = new HashSet<> ();
+            followees[followerId].add (followerId);
+        }
+        
+        followees[followerId].add (followeeId);
     }
     
     public void unfollow(int followerId, int followeeId) {
         
-        Set<Integer> set = followMap.getOrDefault (followerId, new HashSet<> ());
-        set.remove (followeeId);
-        followMap.put (followerId, set);
+        followees[followerId].remove (followeeId);
     }
 }
 
