@@ -1,43 +1,43 @@
 class Solution {
     public String longestPalindrome(String s) {
-        int resLen = 0;
-        String sb = "";
-        int sLen = s.length();
+        int stringLength = s.length(); 
+        String res = "";
+        int resultLength = 0;
         
-        for(int i = 0; i < sLen; i++) {
-            int l = i; 
-            int r = i;
+        for(int i = 0; i < stringLength; i++) {
+            int left = i;
+            int right = i; 
             
-            while (l >= 0 && 
-                  r < sLen && 
-                  s.charAt(l) == s.charAt(r)
-                  ) {
-                if((r - l + 1) > resLen) {
-                    sb = s.substring(l, r + 1);
-                    resLen = r - l + 1;
+            while(left >= 0 && 
+                  right < stringLength && 
+                  s.charAt(left) == s.charAt(right)
+                 ) {
+                if(right - left + 1 > resultLength) {
+                    res = s.substring(left, right + 1);
+                    resultLength = right - left + 1;
                 }
                 
-                l--;
-                r++;
+                left--;
+                right++;
             }
             
-            l = i;
-            r = i + 1;
+            left = i;
+            right = i + 1;
             
-            while (l >= 0 && 
-                  r < sLen && 
-                  s.charAt(l) == s.charAt(r)
-                  ) {
-                if((r - l + 1) > resLen) {
-                    sb = s.substring(l, r + 1);
-                    resLen = r - l + 1;
+            while(left >= 0 && 
+                  right < stringLength && 
+                  s.charAt(left) == s.charAt(right)
+                 ) {
+                if(right - left + 1 > resultLength) {
+                    res = s.substring(left, right + 1);
+                    resultLength = right - left + 1;
                 }
                 
-                l--;
-                r++;
+                left--;
+                right++;
             }
         }
         
-        return sb;
+        return res;
     }
 }
