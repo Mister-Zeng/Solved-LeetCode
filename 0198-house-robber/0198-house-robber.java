@@ -1,18 +1,15 @@
 class Solution {
     public int rob(int[] nums) {
-        if(nums.length == 0) return 0;
-        if(nums.length == 1) return nums[0];
-        if(nums.length == 2) return Math.max(nums[0], nums[1]);
-        
-        int robIncludingLastHouse = 0;
-        int robWithoutIncludingLastHouse = 0; 
+        if (nums == null || nums.length == 0) return 0;
+
+        int dp0 = 0, dp1 = 0, curr;
         
         for(int num : nums) {
-            int temp = Math.max(robWithoutIncludingLastHouse + num, robIncludingLastHouse);
-            robWithoutIncludingLastHouse = robIncludingLastHouse;
-            robIncludingLastHouse = temp;
+            curr = Math.max(dp0 + num, dp1);
+            dp0 = dp1;
+            dp1 = curr;
         }
         
-        return robIncludingLastHouse;
+        return Math.max(dp0, dp1);
     }
 }
