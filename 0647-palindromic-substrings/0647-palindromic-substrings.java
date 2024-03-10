@@ -1,6 +1,9 @@
 class Solution {
     public int countSubstrings(String s) {
         int stringLength = s.length(); 
+        
+        if (s.length() < 2) return stringLength;
+        
         int result = 0;
         
         for(int i = 0; i < stringLength; i++) {
