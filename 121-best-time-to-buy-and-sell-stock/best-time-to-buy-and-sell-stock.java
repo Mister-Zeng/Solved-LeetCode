@@ -5,7 +5,7 @@ class Solution {
         
         for (int price : prices) {
             lowest = Math.min(lowest, price);
-            max = Math.max(max, Math.abs(price - lowest));
+            max = Math.max(max, price - lowest);
         }
 
         return max;
